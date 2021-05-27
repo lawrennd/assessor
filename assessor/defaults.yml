@@ -1,0 +1,13 @@
+# Instructor email and name
+instructor_email: user@mail.com
+instructor_name: Name
+# group email for people assisting with assessment.
+assessor_group_email: group@mail.com
+# Google spreadsheet which includes names and emails of students
+participant_list_key: null
+participant_list_sheet: null
+class_marksheets_pickle: null
+assessment_short_name: Default
+assessment_long_name: Default
+assessment_year: 2021
+data_directory: "$HOME"

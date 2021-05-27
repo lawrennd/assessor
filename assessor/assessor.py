@@ -1,8 +1,7 @@
-from __future__ import absolute_import
 import pandas as pd
 import numpy as np
 import json
-from .config import config
+import yaml
 import os
 
 check_mark = '<span style="color:red;">**&#10004;**</span>'
@@ -12,22 +11,41 @@ check_mark = '<span style="color:red;">**Correct**</span>'
 # when not having those lines in the config!
 # I am not quite sure what to do else...
 
-# short_name = config.get('assesser', 'assessment_short_name')
-# long_name = config.get('assesser', 'assessment_long_name')
-# year = config.get('assesser', 'assessment_year')
+# This is configuration for the assessor 
 
-# data_directory = os.path.expandvars(config.get('assesser', 'data_directory'))
+default_file = os.path.join(os.path.dirname(__file__), "defaults.yml")
+local_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "machine.cfg"))
+user_file = '_assessor.yml'
 
-# instructor_email = config.get('assesser', 'instructor_email')
-# instructor_name = config.get('assesser', 'instructor_name')
-# assesser_group_email = config.get('assesser', 'assesser_group_email')
+config = {}
 
-# participant_key = config.get('assesser', 'participant_list_key')
-# participant_sheet = config.get('assesser', 'participant_list_sheet')
-# marksheets_filename = config.get('assesser', 'class_marksheets_pickle')
+if os.path.exists(default_file):
+    with open(default_file) as file:
+        config.update(yaml.load(file, Loader=yaml.FullLoader))
+
+if os.path.exists(local_file):
+    with open(local_file) as file:
+        config.update(yaml.load(file, Loader=yaml.FullLoader))
+
+if os.path.exists(user_file):
+    with open(user_file) as file:
+        config.update(yaml.load(file, Loader=yaml.FullLoader))
+        
+short_name = config['assessment_short_name']
+long_name = config['assessment_long_name']
+year = config['assessment_year']
+data_directory = os.path.expandvars(config['data_directory'])
+
+instructor_email = config['instructor_email']
+instructor_name = config['instructor_name']
+assessor_group_email = config['assessor_group_email']
+
+participant_key = config['participant_list_key']
+participant_sheet = config['participant_list_sheet']
+marksheets_filename = config['class_marksheets_pickle']
 
 
-class assessment:
+class Assessment:
     """Class for storing assesment information. This class stores the
     questions and answers for an assessment paper. It
     produces mark sheets and provides individual feedback.
@@ -252,11 +270,11 @@ class assessment:
         return total
 
 
-class feedback(assessment):
+class feedback(Assessment):
     """A class for providing student feedback."""
 
     def __init__(self, marksheet, part=0):
-        assessment.__init__(self, part, display_answer=True, display_marks=False)
+        Assessment.__init__(self, part, display_answer=True, display_marks=False)
         self.marksheet = marksheet
         for qu in xrange(len(self.answers)):
             mark = 0
@@ -331,7 +349,7 @@ class feedback(assessment):
                 '### <span style="color:red;">Total Marks '
                 + str(total)
                 + "</span>\n\n"
-                + assessment._repr_md_(self)
+                + Assessment._repr_md_(self)
             )
 
 
