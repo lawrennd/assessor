@@ -35,7 +35,7 @@ except ImportError:
     
 if GDATA_AVAILABLE:
 
-    class distributor:
+    class Distributor:
         """
         Class for distributing google spreadsheets across the group for obtaining information.        
         :param spreadsheet_title: the title of the spreadsheet (used if the spreadsheet is created for the first time)
