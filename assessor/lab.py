@@ -13,7 +13,7 @@ if sys.version_info >= (3, 0):
 else:
     import urlparse
 
-from .config import *
+import assessor
 
 import pickle
 import pandas as pd
@@ -22,18 +22,17 @@ import numpy as np
 
 from . import config
 
-gdata_available = True
+GDATA_AVAILABLE = True
 try:
     import gspread
     import pods.google as gl
 except ImportError:
-    gdata_available = False
+    GDATA_AVAILABLE = False
 
+default_class_dir = assessor.class_info_dir
 
-if gdata_available:
-    default_class_dir = os.path.expanduser(
-        os.path.expandvars(config.config.get("class info", "dir"))
-    )
+    
+if GDATA_AVAILABLE:
 
     class distributor:
         """
