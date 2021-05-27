@@ -13,7 +13,6 @@ if sys.version_info >= (3, 0):
 else:
     import urlparse
 
-from . import class_info_dir
     
 
 import pickle
