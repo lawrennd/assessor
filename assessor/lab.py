@@ -13,7 +13,6 @@ if sys.version_info >= (3, 0):
 else:
     import urlparse
 
-import assessor
 
 import pickle
 import pandas as pd
