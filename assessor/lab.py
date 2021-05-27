@@ -21,7 +21,7 @@ import pickle
 import numpy as np
 
 from .config import config
-default_class_dir = config.class_info_dir
+default_class_dir = config['class_info_dir']
 
 
 GDATA_AVAILABLE = True

@@ -36,16 +36,3 @@ if config=={}:
     )
 
         
-short_name = config['assessment_short_name']
-long_name = config['assessment_long_name']
-year = config['assessment_year']
-data_directory = os.path.expandvars(config['data_directory'])
-
-instructor_email = config['instructor_email']
-instructor_name = config['instructor_name']
-assessor_group_email = config['assessor_group_email']
-
-participant_key = config['participant_list_key']
-participant_sheet = config['participant_list_sheet']
-marksheets_filename = config['class_marksheets_pickle']
-
