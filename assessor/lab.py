@@ -78,8 +78,8 @@ class Distributor:
                 "spreadsheet_key" in participant_list
                 and "worksheet_name" in participant_list
             ):
-                resource = gl.resource(id=participant_list["spreadsheet_key"])
-                self.participant_sheet = gl.sheet(
+                resource = gl.Resource(id=participant_list["spreadsheet_key"])
+                self.participant_sheet = gl.Sheet(
                     resource=resource,
                     worksheet_name=participant_list["worksheet_name"],
                     gs_client=self.gs_client,
@@ -151,7 +151,7 @@ class Distributor:
         """Delete a user's sheet."""
         if self._sheet_exists(user):
             # sheet_key = self.sheet_keys[user]
-            # sheet = gl.sheet(spreadsheet_key=self.sheet_keys[user])
+            # sheet = gl.Sheet(spreadsheet_key=self.sheet_keys[user])
             # sheet.share_delete()
             del self.sheet_keys[user]
             pickle.dump(self.sheet_keys, open(self.keys_file, "wb"))
@@ -168,13 +168,13 @@ class Distributor:
         # check if we've already got a spreadsheet for this user, otherwise create one.
 
         if user in self.sheet_keys:
-            resource = gl.resource(id=self.sheet_keys[user], drive=self.drive)
-            sheet = gl.sheet(
+            resource = gl.Resource(id=self.sheet_keys[user], drive=self.drive)
+            sheet = gl.Sheet(
                 resource=resource,
                 worksheet_name=self.worksheet_name,
                 gs_client=self.gs_client,
             )
-            # if gl.sheet had to login, store the details.
+            # if gl.Sheet had to login, store the details.
             self.drive = resource.drive
             self.gs_client = sheet.gs_client
         else:
@@ -182,10 +182,10 @@ class Distributor:
             title = self.spreadsheet_title
             if name is not None:
                 title += " " + name
-            resource = gl.resource(drive=self.drive)
+            resource = gl.Resource(drive=self.drive)
             resource.set_title(title)
-            sheet = gl.sheet(gs_client=self.gs_client, header=2)
-            # if gl.sheet had to login, store the details.
+            sheet = gl.Sheet(gs_client=self.gs_client, header=2)
+            # if gl.Sheet had to login, store the details.
             self.gs_client = sheet.gs_client
             self.drive = resource.drive
             self.sheet_keys[user] = resource._id
