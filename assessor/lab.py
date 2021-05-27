@@ -15,14 +15,15 @@ else:
 
 from . import class_info_dir
     
-default_class_dir = class_info_dir
 
 import pickle
 import pandas as pd
 import pickle
 import numpy as np
 
-from . import config
+from .config import config
+default_class_dir = config.class_info_dir
+
 
 GDATA_AVAILABLE = True
 try:
