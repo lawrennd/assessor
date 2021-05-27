@@ -13,8 +13,9 @@ if sys.version_info >= (3, 0):
 else:
     import urlparse
 
+from .assessor import class_info_dir
     
-default_class_dir = assessor.class_info_dir
+default_class_dir = class_info_dir
 
 import pickle
 import pandas as pd
