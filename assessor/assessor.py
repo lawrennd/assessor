@@ -35,6 +35,7 @@ short_name = config['assessment_short_name']
 long_name = config['assessment_long_name']
 year = config['assessment_year']
 data_directory = os.path.expandvars(config['data_directory'])
+class_info_dir = os.path.expandvars(config['class_info_dir'])
 
 instructor_email = config['instructor_email']
 instructor_name = config['instructor_name']
