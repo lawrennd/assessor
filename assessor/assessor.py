@@ -7,43 +7,8 @@ import os
 check_mark = '<span style="color:red;">**&#10004;**</span>'
 check_mark = '<span style="color:red;">**Correct**</span>'
 
-# Max: I commented these lines, as they do not allow to import pods
-# when not having those lines in the config!
-# I am not quite sure what to do else...
+from .config import config
 
-# This is configuration for the assessor 
-
-default_file = os.path.join(os.path.dirname(__file__), "defaults.yml")
-local_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "machine.cfg"))
-user_file = '_assessor.yml'
-
-config = {}
-
-if os.path.exists(default_file):
-    with open(default_file) as file:
-        config.update(yaml.load(file, Loader=yaml.FullLoader))
-
-if os.path.exists(local_file):
-    with open(local_file) as file:
-        config.update(yaml.load(file, Loader=yaml.FullLoader))
-
-if os.path.exists(user_file):
-    with open(user_file) as file:
-        config.update(yaml.load(file, Loader=yaml.FullLoader))
-        
-short_name = config['assessment_short_name']
-long_name = config['assessment_long_name']
-year = config['assessment_year']
-data_directory = os.path.expandvars(config['data_directory'])
-class_info_dir = os.path.expandvars(config['class_info_dir'])
-
-instructor_email = config['instructor_email']
-instructor_name = config['instructor_name']
-assessor_group_email = config['assessor_group_email']
-
-participant_key = config['participant_list_key']
-participant_sheet = config['participant_list_sheet']
-marksheets_filename = config['class_marksheets_pickle']
 
 
 class Assessment:
@@ -356,5 +321,5 @@ class feedback(Assessment):
 
 def answer(part, module="mlai2014.json"):
     """Returns the answers to the lab classes."""
-    marks = json.load(open(os.path.join(data_directory, module), "rb"))
+    marks = json.load(open(os.path.join(config.data_directory, module), "rb"))
     return marks["Lab " + str(part + 1)]
