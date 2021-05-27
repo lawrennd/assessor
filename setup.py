@@ -25,6 +25,8 @@ VERSION = "0.0.1"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
+    "pods",
+    "goggles",
     "pandas",
     "PyYAML>=5.1",
 ]
