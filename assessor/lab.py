@@ -84,7 +84,7 @@ class Distributor:
                     worksheet_name=participant_list["worksheet_name"],
                     gs_client=self.gs_client,
                 )
-                # if gl.sheet had to login, store the details.
+                # if gl.Sheet had to login, store the details.
                 self.drive = self.participant_sheet.resource.drive
                 self.gs_client = self.participant_sheet.gs_client
                 self.users = self.participant_sheet.read()
